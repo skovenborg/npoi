@@ -187,6 +187,9 @@ namespace NPOI.HSSF.UserModel
                              ? CellType.Boolean
                              : CellType.Error;
 
+                case HyperlinkRecord.sid:
+                    return CellType.Error;
+
             }
             throw new Exception("Bad cell value rec (" + cval.GetType().Name + ")");
         }

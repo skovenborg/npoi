@@ -32,7 +32,7 @@ namespace NPOI.HSSF.Record
      * @author      Mark Hissink Muller <a href="mailto:mark@hissinkmuller.nl">mark@hissinkmuller.nl</a>
      * @author      Yegor Kozlov (yegor at apache dot org)
      */
-    public class HyperlinkRecord : StandardRecord
+    public class HyperlinkRecord : StandardRecord, CellValueRecordInterface
     {
         private static POILogger logger = POILogFactory.GetLogger(typeof(HyperlinkRecord));
         /**
@@ -104,6 +104,10 @@ namespace NPOI.HSSF.Record
          * Remaining bytes
          */
         private byte[] _uninterpretedTail;
+
+        private int field_1_row;
+        private int field_2_col;
+        private short field_3_xf;
 
         /**
          * Create a new hyperlink
@@ -676,5 +680,38 @@ namespace NPOI.HSSF.Record
         }
 
 
+        /**
+         * Get the row this cell occurs on
+         *
+         * @return the row
+         */
+        public int Row
+        {
+            get { return field_1_row; }
+            set { field_1_row = value; }
+        }
+
+        /**
+         * Get the column this cell defines within the row
+         *
+         * @return the column
+         */
+        public int Column
+        {
+            get { return field_2_col; }
+            set { field_2_col = value; }
+        }
+
+        /**
+         * Set the index of the extended format record to style this cell with
+         *
+         * @param xf - the 0-based index of the extended format
+         * @see org.apache.poi.hssf.record.ExtendedFormatRecord
+         */
+        public short XFIndex
+        {
+            set { field_3_xf = value; }
+            get { return field_3_xf; }
+        }
     }
 }
